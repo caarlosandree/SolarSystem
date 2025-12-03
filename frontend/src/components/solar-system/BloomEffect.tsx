@@ -112,7 +112,7 @@ export default function BloomEffect() {
 
   return (
     <EffectComposer 
-      disableNormalPass
+      enableNormalPass={false}
       multisampling={0}
       resolutionScale={1}
     >
