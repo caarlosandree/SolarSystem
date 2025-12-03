@@ -1,3 +1,4 @@
+import { QueryProvider } from '@/providers/QueryProvider';
 import { SolarSystemProvider } from '@/contexts/SolarSystemContext';
 import { UIProvider } from '@/contexts/UIContext';
 import SolarSystem from '@/components/solar-system/SolarSystem';
@@ -12,21 +13,23 @@ import InfoPanel from '@/components/ui/InfoPanel';
 
 function App() {
   return (
-    <SolarSystemProvider>
-      <UIProvider>
-        <div className="relative h-screen w-screen overflow-hidden">
-          <SolarSystem />
-          <MissionControl />
-          <CelestialPanel />
-          <PlanetInfoCard />
-          <EclipseTourInfo />
-          <Chatbot />
-          <ChatbotToggle />
-          <MusicControls />
-          <InfoPanel />
-        </div>
-      </UIProvider>
-    </SolarSystemProvider>
+    <QueryProvider>
+      <SolarSystemProvider>
+        <UIProvider>
+          <div className="relative h-screen w-screen overflow-hidden">
+            <SolarSystem />
+            <MissionControl />
+            <CelestialPanel />
+            <PlanetInfoCard />
+            <EclipseTourInfo />
+            <Chatbot />
+            <ChatbotToggle />
+            <MusicControls />
+            <InfoPanel />
+          </div>
+        </UIProvider>
+      </SolarSystemProvider>
+    </QueryProvider>
   );
 }
 

@@ -1,7 +1,17 @@
 import { Color } from 'three';
 import type { CelestialBody } from '@/types/planet';
 
-export const NASA_API_KEY = 'CH3TuB34hg317ulEggcZCMlKgCCPYQeTzdzJDNCz';
+function getNasaApiKey(): string {
+  const key = import.meta.env.VITE_NASA_API_KEY;
+  if (!key) {
+    console.warn(
+      'VITE_NASA_API_KEY não está configurada. Algumas funcionalidades da API da NASA podem não funcionar.'
+    );
+  }
+  return key || '';
+}
+
+export const NASA_API_KEY = getNasaApiKey();
 
 export const GEMINI_MODEL = 'gemini-2.5-flash';
 

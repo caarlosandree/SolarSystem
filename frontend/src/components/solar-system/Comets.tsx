@@ -1,27 +1,23 @@
 import { useMemo, useRef } from 'react';
 import { useFrame } from '@react-three/fiber';
-import { useQuery } from '@tanstack/react-query';
 import { Mesh, SphereGeometry, ConeGeometry, MeshStandardMaterial, MeshBasicMaterial, Color, Vector3 } from 'three';
 import { useSolarSystem } from '@/contexts/SolarSystemContext';
-import { fetchComets } from '@/services/nasaApi';
+import { useComets } from '@/hooks/queries/useComets';
+import type { CometObject } from '@/services/nasaApi';
 
 interface Comet {
   mesh: Mesh;
   tail: Mesh;
   name: string;
-  data: any;
+  data: CometObject;
 }
 
 export default function Comets() {
   const { state } = useSolarSystem();
   const cometsRef = useRef<Comet[]>([]);
 
-  // Fetch comets
-  const { data: comets } = useQuery({
-    queryKey: ['comets'],
-    queryFn: fetchComets,
-    staleTime: 60 * 60 * 1000, // 1 hour
-  });
+  // Fetch comets using custom hook
+  const { data: comets } = useComets();
 
   const cometObjects = useMemo(() => {
     const newComets: Comet[] = [];

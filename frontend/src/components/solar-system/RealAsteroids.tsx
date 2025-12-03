@@ -1,18 +1,21 @@
 import { useMemo, useRef } from 'react';
 import { useFrame } from '@react-three/fiber';
-import { useQuery } from '@tanstack/react-query';
 import { useTexture } from '@react-three/drei';
 import { Mesh, SphereGeometry, MeshStandardMaterial, Color } from 'three';
 import { useSolarSystem } from '@/contexts/SolarSystemContext';
-import { fetchNEOs, fetchSentryObjects, fetchFamousAsteroids } from '@/services/nasaApi';
+import { useFamousAsteroids } from '@/hooks/queries/useFamousAsteroids';
+import { useNEOs } from '@/hooks/queries/useNEOs';
+import { useSentryObjects } from '@/hooks/queries/useSentryObjects';
 import { keplerToCartesian } from '@/utils/orbital';
 import { AU_TO_SCENE } from '@/utils/constants';
+import type { FamousAsteroidData } from '@/services/nasaApi';
+import type { NEOObject, SentryObject } from '@/services/nasaApi';
 
 interface RealAsteroid {
   mesh: Mesh;
   name: string;
   type: 'famous' | 'neo' | 'sentry';
-  data: any;
+  data: FamousAsteroidData | NEOObject | SentryObject;
 }
 
 export default function RealAsteroids() {
@@ -22,26 +25,10 @@ export default function RealAsteroids() {
   // Load rock texture for realistic asteroid appearance
   const rockTexture = useTexture('/textures/mars.jpg');
 
-  // Fetch famous asteroids
-  const { data: famousAsteroids } = useQuery({
-    queryKey: ['famousAsteroids'],
-    queryFn: fetchFamousAsteroids,
-    staleTime: 60 * 60 * 1000, // 1 hour
-  });
-
-  // Fetch NEOs
-  const { data: neoObjects } = useQuery({
-    queryKey: ['neoObjects'],
-    queryFn: fetchNEOs,
-    staleTime: 60 * 60 * 1000,
-  });
-
-  // Fetch Sentry objects
-  const { data: sentryObjects } = useQuery({
-    queryKey: ['sentryObjects'],
-    queryFn: fetchSentryObjects,
-    staleTime: 60 * 60 * 1000,
-  });
+  // Fetch asteroids using custom hooks
+  const { data: famousAsteroids } = useFamousAsteroids();
+  const { data: neoObjects } = useNEOs();
+  const { data: sentryObjects } = useSentryObjects();
 
   const asteroids = useMemo(() => {
     const newAsteroids: RealAsteroid[] = [];

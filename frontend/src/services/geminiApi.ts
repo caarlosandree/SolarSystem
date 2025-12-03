@@ -1,4 +1,5 @@
 import { GEMINI_MODEL } from '@/utils/constants';
+import { GeminiApiError, NetworkError } from '@/errors/apiErrors';
 
 const SYSTEM_PROMPT = `Você é Stellar, uma assistente de IA especialista em astronomia e exploração solar com profundo conhecimento em astrofísica, ciência planetária, evolução estelar, cosmologia e missões espaciais (NASA, ESA, ISRO, CNSA, JAXA). Sua expertise abrange: objetos do sistema solar, astronomia estelar, técnicas observacionais, missões de exploração espacial, exoplanetas, astrobiologia e cosmologia.
 
@@ -69,6 +70,14 @@ function getGeminiApiKey(): string {
   return import.meta.env.VITE_GEMINI_API_KEY || '';
 }
 
+/**
+ * Busca resposta da API do Gemini para uma mensagem
+ * @param message - Mensagem do usuário
+ * @param providedApiKey - Chave da API (opcional, usa variável de ambiente se não fornecida)
+ * @returns Resposta do Gemini ou objeto com reason se indisponível
+ * @throws {GeminiApiError} Se a API retornar erro
+ * @throws {NetworkError} Se houver erro de conexão
+ */
 export async function fetchGeminiResponse(
   message: string,
   providedApiKey?: string
@@ -116,7 +125,7 @@ export async function fetchGeminiResponse(
       const errorMessage =
         data?.error?.message ||
         `Requisição à API do Gemini falhou com status ${response.status}`;
-      throw new Error(errorMessage);
+      throw new GeminiApiError(errorMessage, response.status, data);
     }
 
     const text = extractGeminiText(data);
@@ -158,9 +167,27 @@ export async function fetchGeminiResponse(
     return { text: null, reason };
   } catch (error) {
     console.error('Erro na API do Gemini:', error);
+    
+    // Se já é um erro customizado, apenas repassa
+    if (error instanceof GeminiApiError) {
+      throw error;
+    }
+    
+    // Verifica se é erro de rede
+    if (error instanceof TypeError && error.message.includes('fetch')) {
+      throw new NetworkError(
+        'Erro de conexão ao comunicar com a API do Gemini',
+        error
+      );
+    }
+    
     const errorMessage =
       error instanceof Error ? error.message : 'Erro desconhecido';
-    throw new Error(`Problema de conexão com Gemini: ${errorMessage}`);
+    throw new GeminiApiError(
+      `Problema de conexão com Gemini: ${errorMessage}`,
+      undefined,
+      error
+    );
   }
 }
 

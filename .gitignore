@@ -1,0 +1,6 @@
+# Cursor IDE
+.cursor/
+
+# GitHub (comentado - necessário para workflows)
+# .github/
+

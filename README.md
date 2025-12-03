@@ -65,11 +65,19 @@ http://localhost:5173
 
 ### 🔐 Variáveis de Ambiente
 
-Crie um arquivo `.env` na raiz do projeto para habilitar o chatbot alimentado por Gemini (atualmente configurado para o modelo `gemini-2.0-flash-latest`):
+Crie um arquivo `.env` na pasta `frontend/` do projeto para habilitar funcionalidades que requerem APIs externas:
 
 ```bash
+# Chave da API do Google Gemini para o chatbot IA Espacial
+# Obtenha sua chave em: https://aistudio.google.com/app/apikey
 VITE_GEMINI_API_KEY=sua_chave_do_google_ai_studio
+
+# Chave da API da NASA para dados de asteroides, NEOs e outros objetos celestes
+# Obtenha sua chave gratuita em: https://api.nasa.gov/
+VITE_NASA_API_KEY=sua_chave_da_api_nasa
 ```
+
+**Nota**: Um arquivo `.env.example` está disponível na pasta `frontend/` como referência. Copie-o para `.env` e preencha com suas chaves.
 
 O servidor de desenvolvimento detectará as mudanças automaticamente; reinicie-o após editar o arquivo `.env` ao fazer build para produção.
 
