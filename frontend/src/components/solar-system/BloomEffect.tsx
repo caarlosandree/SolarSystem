@@ -16,19 +16,20 @@ export default function BloomEffect() {
   const isWebGLContextReady = () => {
     if (!gl || !gl.domElement) return false;
     
-    // Verificar se o renderer existe
-    if (!gl.renderer) return false;
-    
-    // Verificar se o WebGL context está disponível e não foi perdido
-    const canvas = gl.domElement;
-    const context = canvas.getContext('webgl') || canvas.getContext('webgl2');
-    if (!context) return false;
-    
-    // Verificar se o contexto não foi perdido
-    const isContextLost = context.isContextLost ? context.isContextLost() : false;
-    if (isContextLost) return false;
-    
-    return true;
+    // Verificar o contexto WebGL através do renderer (não criar um novo)
+    try {
+      const context = gl.getContext();
+      if (!context) return false;
+      
+      // Verificar se o contexto não foi perdido
+      const isContextLost = context.isContextLost ? context.isContextLost() : false;
+      if (isContextLost) return false;
+      
+      return true;
+    } catch (error) {
+      // Se houver erro ao acessar o contexto, considerar não pronto
+      return false;
+    }
   };
 
   // Usar useEffect para garantir que o contexto está pronto antes de renderizar
@@ -36,7 +37,6 @@ export default function BloomEffect() {
     // Verificar se todos os componentes necessários estão disponíveis
     if (
       gl &&
-      gl.renderer &&
       gl.domElement &&
       scene &&
       camera &&
@@ -100,7 +100,6 @@ export default function BloomEffect() {
   if (
     !ready ||
     !gl ||
-    !gl.renderer ||
     !gl.domElement ||
     !scene ||
     !camera ||
@@ -112,12 +111,17 @@ export default function BloomEffect() {
   }
 
   return (
-    <EffectComposer>
+    <EffectComposer 
+      disableNormalPass
+      multisampling={0}
+      resolutionScale={1}
+    >
       <Bloom
         luminanceThreshold={0.05}
         luminanceSmoothing={0.6}
         radius={0.6}
         intensity={intensity}
+        mipmapBlur={true}
       />
     </EffectComposer>
   );

@@ -26,7 +26,7 @@ export function useFollowCamera() {
 
     // Find the target position
     const body = state.followingBody;
-    let targetPosition = new Vector3(0, 0, 0);
+    const targetPosition = new Vector3(0, 0, 0);
 
     // Calculate planet position based on orbital mechanics
     const angle = body.initialAngle + (Date.now() * 0.0001 * body.speed * state.speed);

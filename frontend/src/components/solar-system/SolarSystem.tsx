@@ -36,9 +36,9 @@ function Skyfield() {
 export default function SolarSystem() {
   return (
     <Canvas
-      gl={{ antialias: true, toneMappingExposure: 1.2 }}
+      gl={{ antialias: false, toneMappingExposure: 1.2 }}
       camera={{ position: [0, 30, 70], fov: 75 }}
-      style={{ width: '100%', height: '100%' }}
+      style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%' }}
     >
       <Suspense fallback={null}>
         <ambientLight intensity={0.5} color={new Color(0.13, 0.13, 0.13)} />

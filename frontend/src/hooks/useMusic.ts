@@ -12,14 +12,15 @@ export function useMusic() {
     audio.volume = volume;
     audioRef.current = audio;
 
-    // Auto-play after 1 second
+    // Auto-play after 1 second (silenciosamente, pois pode ser bloqueado)
     if (!autoPlayAttemptedRef.current) {
       autoPlayAttemptedRef.current = true;
       setTimeout(() => {
         audio.play().then(() => {
           setIsPlaying(true);
-        }).catch((err) => {
-          console.log('Reprodução automática bloqueada pelo navegador:', err);
+        }).catch(() => {
+          // Autoplay bloqueado pelo navegador - comportamento esperado
+          // Não logar erro, pois é normal e o usuário pode iniciar manualmente
         });
       }, 1000);
     }
