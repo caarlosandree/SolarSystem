@@ -9,7 +9,6 @@
     <img src="https://img.shields.io/github/repo-size/SoumyaEXE/3d-Solar-System-ThreeJS?color=purple&style=for-the-badge" alt="Tamanho do Repositório"/>
     <img src="https://img.shields.io/github/last-commit/SoumyaEXE/3d-Solar-System-ThreeJS?color=green&style=for-the-badge" alt="Último Commit"/>
     <img src="https://img.shields.io/github/stars/SoumyaEXE/3d-Solar-System-ThreeJS?style=for-the-badge&color=yellow" alt="Estrelas"/>
-    <img src="https://img.shields.io/github/forks/SoumyaEXE/3d-Solar-System-ThreeJS?style=for-the-badge&color=orange" alt="Forks"/>
   </p>
 </p>
 
