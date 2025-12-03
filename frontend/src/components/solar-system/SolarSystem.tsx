@@ -13,10 +13,10 @@ import CameraController from './CameraController';
 import KeyboardShortcutsHandler from './KeyboardShortcutsHandler';
 import EclipseTour from './EclipseTour';
 import DistantStars from './DistantStars';
-import { celestialBodies } from '@/utils/constants';
+import { celestialBodies, getAssetPath } from '@/utils/constants';
 
 function Skyfield() {
-  const skyTexture = useTexture('/textures/stars.jpg');
+  const skyTexture = useTexture(getAssetPath('/textures/stars.jpg'));
   
   return (
     <mesh>

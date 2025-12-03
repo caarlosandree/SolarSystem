@@ -3,13 +3,14 @@ import { useFrame } from '@react-three/fiber';
 import { useTexture } from '@react-three/drei';
 import { Mesh, Color, Texture } from 'three';
 import { Lensflare, LensflareElement } from 'three/examples/jsm/objects/Lensflare.js';
+import { getAssetPath } from '@/utils/constants';
 
 export default function Sun() {
   const meshRef = useRef<Mesh>(null);
   const lensflareRef = useRef<Lensflare | null>(null);
-  const sunTexture = useTexture('/textures/sun.jpg') as Texture;
-  const textureFlare0 = useTexture('/textures/lensflare0.png') as Texture;
-  const textureFlare2 = useTexture('/textures/lensflare2.png') as Texture;
+  const sunTexture = useTexture(getAssetPath('/textures/sun.jpg')) as Texture;
+  const textureFlare0 = useTexture(getAssetPath('/textures/lensflare0.png')) as Texture;
+  const textureFlare2 = useTexture(getAssetPath('/textures/lensflare2.png')) as Texture;
 
   // Configurar texturas corretamente
   useEffect(() => {

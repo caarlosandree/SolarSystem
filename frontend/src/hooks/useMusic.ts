@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect } from 'react';
+import { getAssetPath } from '@/utils/constants';
 
 export function useMusic() {
   const [isPlaying, setIsPlaying] = useState(false);
@@ -7,7 +8,7 @@ export function useMusic() {
   const autoPlayAttemptedRef = useRef(false);
 
   useEffect(() => {
-    const audio = new Audio('/textures/interstellar.mp3');
+    const audio = new Audio(getAssetPath('/textures/interstellar.mp3'));
     audio.loop = true;
     audio.volume = volume;
     audioRef.current = audio;

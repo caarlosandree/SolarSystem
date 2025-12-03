@@ -7,7 +7,7 @@ import { useFamousAsteroids } from '@/hooks/queries/useFamousAsteroids';
 import { useNEOs } from '@/hooks/queries/useNEOs';
 import { useSentryObjects } from '@/hooks/queries/useSentryObjects';
 import { keplerToCartesian } from '@/utils/orbital';
-import { AU_TO_SCENE } from '@/utils/constants';
+import { AU_TO_SCENE, getAssetPath } from '@/utils/constants';
 import type { FamousAsteroidData } from '@/services/nasaApi';
 import type { NEOObject, SentryObject } from '@/services/nasaApi';
 
@@ -23,7 +23,7 @@ export default function RealAsteroids() {
   const asteroidsRef = useRef<RealAsteroid[]>([]);
   
   // Load rock texture for realistic asteroid appearance
-  const rockTexture = useTexture('/textures/mars.jpg');
+  const rockTexture = useTexture(getAssetPath('/textures/mars.jpg'));
 
   // Fetch asteroids using custom hooks
   const { data: famousAsteroids } = useFamousAsteroids();

@@ -13,6 +13,23 @@ function getNasaApiKey(): string {
 
 export const NASA_API_KEY = getNasaApiKey();
 
+/**
+ * Constrói um caminho de asset relativo ao base path configurado no Vite.
+ * Isso é necessário para funcionar corretamente no GitHub Pages onde o base path
+ * é diferente de '/'.
+ * 
+ * @param path - Caminho do asset (ex: '/textures/sun.jpg')
+ * @returns Caminho correto relativo ao base path (ex: '/sistemaSolar/textures/sun.jpg')
+ */
+export function getAssetPath(path: string): string {
+  const base = import.meta.env.BASE_URL;
+  // Remove a barra inicial do path se existir e adiciona o base path
+  const cleanPath = path.startsWith('/') ? path.slice(1) : path;
+  // Garante que o base path termina com '/' e o path não começa com '/'
+  const baseWithSlash = base.endsWith('/') ? base : `${base}/`;
+  return `${baseWithSlash}${cleanPath}`;
+}
+
 export const GEMINI_MODEL = 'gemini-2.5-flash';
 
 export const AU_TO_SCENE = 15;

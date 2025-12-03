@@ -5,6 +5,7 @@ import { Mesh, Color, Group, DoubleSide } from 'three';
 import type { CelestialBody } from '@/types/planet';
 import { useSolarSystem } from '@/contexts/SolarSystemContext';
 import { useUI } from '@/contexts/UIContext';
+import { getAssetPath } from '@/utils/constants';
 import Moon from './Moon';
 import Orbit from './Orbit';
 
@@ -20,10 +21,14 @@ export default function Planet({ body }: PlanetProps) {
 
   // Always call useTexture hook, but use fallback when texture is missing
   // Using sun.jpg as fallback since it always exists
-  const texturePath = body.texture ? `/textures/${body.texture}` : '/textures/sun.jpg';
+  const texturePath = body.texture 
+    ? getAssetPath(`/textures/${body.texture}`) 
+    : getAssetPath('/textures/sun.jpg');
   const texture = useTexture(texturePath);
   // Load ring texture only for planets with rings
-  const ringTexturePath = body.hasRings ? '/textures/saturn_ring.png' : '/textures/sun.jpg';
+  const ringTexturePath = body.hasRings 
+    ? getAssetPath('/textures/saturn_ring.png') 
+    : getAssetPath('/textures/sun.jpg');
   const ringTextureLoaded = useTexture(ringTexturePath);
   const ringTexture = body.hasRings ? ringTextureLoaded : null;
   const color = body.color || new Color(0.8, 0.8, 0.8);

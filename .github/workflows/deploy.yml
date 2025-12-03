@@ -36,6 +36,8 @@ jobs:
         working-directory: ./frontend
         env:
           VITE_BASE_PATH: /${{ github.event.repository.name }}/
+          VITE_NASA_API_KEY: ${{ secrets.VITE_NASA_API_KEY }}
+          VITE_GEMINI_API_KEY: ${{ secrets.VITE_GEMINI_API_KEY }}
         run: npm run build
 
       - name: Setup Pages
