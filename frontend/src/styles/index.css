@@ -1,0 +1,42 @@
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Titillium+Web:wght@300;400;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * {
+    @apply box-border;
+  }
+
+  body {
+    @apply m-0 overflow-hidden bg-space-deep-space font-titillium text-nasa-gray;
+  }
+
+  canvas {
+    @apply block;
+  }
+}
+
+@layer utilities {
+  .collapsed .max-h-0 {
+    max-height: 0;
+    padding: 0;
+  }
+
+  @keyframes slideIn {
+    from {
+      opacity: 0;
+      transform: translate(-50%, -60%);
+    }
+    to {
+      opacity: 1;
+      transform: translate(-50%, -50%);
+    }
+  }
+
+  .animate-slideIn {
+    animation: slideIn 0.3s ease-out;
+  }
+}
+

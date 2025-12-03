@@ -101,7 +101,7 @@ npm run build
 ## 🛠️ Stack Tecnológica
 
 <p align="center">
-  <img src="https://skillicons.dev/icons?i=threejs,vite,js,html,css" alt="Stack Tecnológica" />
+  <img src="https://skillicons.dev/icons?i=threejs,vite,ts,react,tailwind" alt="Stack Tecnológica" />
 </p>
 
 ---
@@ -125,13 +125,3 @@ Este projeto está licenciado sob a Licença MIT — veja [LICENSE](LICENSE) par
 - 🛰️ Inspiração 3D: Three.js Examples  
 
 ---
-
-## 👥 Contribuidores
-
-<p align="center">
-  <a href="https://github.com/SoumyaEXE/3d-Solar-System-ThreeJS/graphs/contributors">
-    <img src="https://contrib.rocks/image?repo=SoumyaEXE/3d-Solar-System-ThreeJS" alt="Contribuidores" style="border-radius: 50%;"/>
-  </a>
-  <br/>
-  <b><sub>Obrigado a todos que contribuíram!</sub></b>
-</p>
