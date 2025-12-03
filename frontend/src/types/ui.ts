@@ -9,5 +9,6 @@ export interface UIState {
   eclipsePhase: string;
   eclipsePhaseDesc: string;
   isUIVisible: boolean;
+  isInfoPanelOpen: boolean;
 }
 

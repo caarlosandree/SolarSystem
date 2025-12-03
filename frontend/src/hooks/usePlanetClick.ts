@@ -13,9 +13,8 @@ export function usePlanetClick() {
   const mouse = useRef(new Vector2());
 
   useEffect(() => {
-    const handleClick = (event: MouseEvent) => {
-      // Check if clicking on UI elements
-      const target = event.target as HTMLElement;
+    const handleInteraction = (clientX: number, clientY: number, target: HTMLElement) => {
+      // Check if clicking/touching on UI elements
       if (
         target.closest('.controls') ||
         target.closest('.celestial-panel') ||
@@ -28,9 +27,9 @@ export function usePlanetClick() {
         return;
       }
 
-      // Calculate mouse position in normalized device coordinates
-      mouse.current.x = (event.clientX / window.innerWidth) * 2 - 1;
-      mouse.current.y = -(event.clientY / window.innerHeight) * 2 + 1;
+      // Calculate position in normalized device coordinates
+      mouse.current.x = (clientX / window.innerWidth) * 2 - 1;
+      mouse.current.y = -(clientY / window.innerHeight) * 2 + 1;
 
       // Update raycaster
       raycaster.current.setFromCamera(mouse.current, camera);
@@ -81,9 +80,26 @@ export function usePlanetClick() {
       }
     };
 
+    const handleClick = (event: MouseEvent) => {
+      handleInteraction(event.clientX, event.clientY, event.target as HTMLElement);
+    };
+
+    const handleTouchEnd = (event: TouchEvent) => {
+      // Prevent default to avoid double-tap zoom and other unwanted behaviors
+      event.preventDefault();
+      
+      if (event.changedTouches.length > 0) {
+        const touch = event.changedTouches[0];
+        handleInteraction(touch.clientX, touch.clientY, event.target as HTMLElement);
+      }
+    };
+
     window.addEventListener('click', handleClick);
+    window.addEventListener('touchend', handleTouchEnd, { passive: false });
+    
     return () => {
       window.removeEventListener('click', handleClick);
+      window.removeEventListener('touchend', handleTouchEnd);
     };
   }, [camera, scene, selectBody, openPlanetInfo]);
 }

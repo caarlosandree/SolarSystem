@@ -12,6 +12,7 @@ interface UIContextType {
   stopEclipseTour: () => void;
   updateEclipseProgress: (progress: number, phase: string, phaseDesc: string) => void;
   toggleUIVisibility: () => void;
+  toggleInfoPanel: () => void;
 }
 
 const initialState: UIState = {
@@ -25,6 +26,7 @@ const initialState: UIState = {
   eclipsePhase: '',
   eclipsePhaseDesc: '',
   isUIVisible: true,
+  isInfoPanelOpen: false,
 };
 
 const UIContext = createContext<UIContextType | undefined>(undefined);
@@ -90,6 +92,10 @@ export function UIProvider({ children }: { children: ReactNode }) {
     setState((prev) => ({ ...prev, isUIVisible: !prev.isUIVisible }));
   }, []);
 
+  const toggleInfoPanel = useCallback(() => {
+    setState((prev) => ({ ...prev, isInfoPanelOpen: !prev.isInfoPanelOpen }));
+  }, []);
+
   return (
     <UIContext.Provider
       value={{
@@ -103,6 +109,7 @@ export function UIProvider({ children }: { children: ReactNode }) {
         stopEclipseTour,
         updateEclipseProgress,
         toggleUIVisibility,
+        toggleInfoPanel,
       }}
     >
       {children}

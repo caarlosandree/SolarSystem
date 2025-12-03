@@ -16,7 +16,7 @@ function App() {
     <QueryProvider>
       <SolarSystemProvider>
         <UIProvider>
-          <div className="relative h-screen w-screen overflow-hidden">
+          <div className="relative h-screen w-screen max-w-full overflow-hidden">
             <SolarSystem />
             <MissionControl />
             <CelestialPanel />

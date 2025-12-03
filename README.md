@@ -1,14 +1,9 @@
 <p align="center">
   <h1 align="center">✨Sistema Solar 3D usando 
-& Vite - VibeCode🌌</h1>
+& Vite 🌌</h1>
   <p align="center">
     <b>Uma simulação interativa 3D do Sistema Solar construída com <a href="https://threejs.org/">Three.js</a> e <a href="https://vitejs.dev/">Vite</a>.</b><br>
     <i>Explore os planetas, suas órbitas e a beleza da nossa vizinhança solar — tudo no seu navegador!</i>
-  </p>
-  <p align="center">
-    <img src="https://img.shields.io/github/repo-size/SoumyaEXE/3d-Solar-System-ThreeJS?color=purple&style=for-the-badge" alt="Tamanho do Repositório"/>
-    <img src="https://img.shields.io/github/last-commit/SoumyaEXE/3d-Solar-System-ThreeJS?color=green&style=for-the-badge" alt="Último Commit"/>
-    <img src="https://img.shields.io/github/stars/SoumyaEXE/3d-Solar-System-ThreeJS?style=for-the-badge&color=yellow" alt="Estrelas"/>
   </p>
 </p>
 
